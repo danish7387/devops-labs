@@ -1,0 +1,21 @@
+# AWS credentials and keys
+*.pem
+.aws/credentials
+
+# Terraform sensitive files
+*.tfstate
+*.tfstate.backup
+.terraform/
+terraform.tfvars
+
+# Environment files with passwords
+.env
+.env.local
+
+# Docker local data
+docker-data/
+
+# Windows files
+.DS_Store
+Thumbs.db
+*.swp
