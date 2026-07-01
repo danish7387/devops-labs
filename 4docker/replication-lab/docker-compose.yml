@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  mysql-primary:
+    image: mysql:8
+    container_name: mysql-primary
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: labdb
+    ports:
+      - '3310:3306'
+    volumes:
+      - primary_data:/var/lib/mysql
+      - ./primary.cnf:/etc/mysql/conf.d/primary.cnf
+
+  
+  mysql-replica:
+    image: mysql:8
+    container_name: mysql-replica
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+    command: --server-id=2 --relay-log=relay-log
+    ports:
+      - '3311:3306'
+    volumes:
+      - replica_data:/var/lib/mysql
+      - ./replica.cnf:/etc/mysql/conf.d/replica.cnf
+    depends_on:
+      - mysql-primary
+    
+volumes:
+  primary_data:
+  replica_data:
